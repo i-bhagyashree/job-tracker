@@ -24,7 +24,18 @@ async function startLocalMongo() {
   }
 }
 
-export async function connectDB() {
+let connecting;
+
+// Reuses one connection across calls (serverless functions are invoked many times per instance)
+export function connectDB() {
+  connecting ??= doConnect().catch((err) => {
+    connecting = undefined;
+    throw err;
+  });
+  return connecting;
+}
+
+async function doConnect() {
   let uri = process.env.MONGO_URI;
   if (!uri) {
     if (process.env.NODE_ENV === 'production') {
