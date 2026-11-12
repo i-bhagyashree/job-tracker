@@ -6,6 +6,7 @@ import AuthPage from './pages/AuthPage';
 import Board from './pages/Board';
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Settings = lazy(() => import('./pages/Settings'));
+const FindJobs = lazy(() => import('./pages/FindJobs'));
 
 function Protected({ children }) {
   const { user, loading } = useAuth();
@@ -32,6 +33,7 @@ export default function App() {
       <Route element={<Protected><Layout /></Protected>}>
         <Route path="/" element={<Board />} />
         <Route path="/dashboard" element={<Suspense fallback={null}><Dashboard /></Suspense>} />
+        <Route path="/find-jobs" element={<Suspense fallback={null}><FindJobs /></Suspense>} />
         <Route path="/settings" element={<Suspense fallback={null}><Settings /></Suspense>} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />

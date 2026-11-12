@@ -18,6 +18,7 @@ A full-stack MERN app to organize your job/internship hunt: track every applicat
 - 📅 **Add interviews to your calendar** — Google Calendar link or `.ics` download (Apple Calendar / Outlook)
 - 👯 **Duplicate warning** when adding a company + role you already track
 - ⚙️ **Settings** — edit profile, change password, delete account (and all its data)
+- 🔎 **Find Jobs** — search internships & jobs on Internshala and LinkedIn (role, city, work-from-home), then save finds straight to your Wishlist
 - 🔍 **Search** across company, role and location
 - 📱 **Responsive** design, loading skeletons, empty & error states, toast notifications
 
@@ -84,7 +85,7 @@ job-tracker/
 │   ├── app.js         # Express app
 │   └── index.js       # local server (npm run dev)
 └── client/src/
-    ├── pages/         # AuthPage, Board, Dashboard, Settings
+    ├── pages/         # AuthPage, Board, Dashboard, FindJobs, Settings
     ├── components/    # KanbanColumn, ApplicationCard, ApplicationModal, Layout
     ├── context/       # AuthContext
     └── lib/           # axios client, React Query hooks, CSV export, calendar
@@ -103,3 +104,7 @@ Environment variables on Vercel: `MONGODB_URI` (from the integration) and `JWT_S
 ```bash
 npx vercel deploy --prod
 ```
+
+---
+
+Made with ❤️ by **Bhagyashree Soni**

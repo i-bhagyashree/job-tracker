@@ -1,12 +1,22 @@
 import { NavLink, Outlet } from 'react-router-dom';
-import { BarChart3, Briefcase, KanbanSquare, LogOut, Settings } from 'lucide-react';
+import { BarChart3, Briefcase, Heart, KanbanSquare, LogOut, Search, Settings } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const NAV = [
   { to: '/', label: 'Board', icon: KanbanSquare, end: true },
   { to: '/dashboard', label: 'Dashboard', icon: BarChart3 },
+  { to: '/find-jobs', label: 'Find Jobs', icon: Search },
   { to: '/settings', label: 'Settings', icon: Settings },
 ];
+
+export function MadeBy({ className = '' }) {
+  return (
+    <p className={`flex items-center justify-center gap-1 text-xs ${className}`}>
+      Made with <Heart size={12} className="fill-rose-500 text-rose-500" /> by
+      <span className="font-semibold">Bhagyashree Soni</span>
+    </p>
+  );
+}
 
 function Logo() {
   return (
@@ -62,6 +72,7 @@ export default function Layout() {
             <LogOut size={16} />
           </button>
         </div>
+        <MadeBy className="mt-4 text-slate-500" />
       </aside>
 
       {/* Top bar (mobile / tablet) */}
@@ -87,8 +98,11 @@ export default function Layout() {
         </nav>
       </header>
 
-      <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        <Outlet />
+      <main className="flex min-w-0 flex-1 flex-col px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="flex-1">
+          <Outlet />
+        </div>
+        <MadeBy className="mt-10 text-slate-400 lg:hidden" />
       </main>
     </div>
   );

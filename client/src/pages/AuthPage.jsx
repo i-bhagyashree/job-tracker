@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BarChart3, BellRing, Briefcase, KanbanSquare } from 'lucide-react';
+import { BarChart3, BellRing, Briefcase, KanbanSquare, Search } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { errorMessage } from '../lib/api';
+import { MadeBy } from '../components/Layout';
 
 const FEATURES = [
   { icon: KanbanSquare, title: 'Visual Kanban board', text: 'Drag applications from Wishlist to Offer.' },
   { icon: BellRing, title: 'Follow-up reminders', text: 'Never forget to ping a recruiter again.' },
+  { icon: Search, title: 'Find jobs & internships', text: 'Search Internshala and LinkedIn in one click.' },
   { icon: BarChart3, title: 'Progress analytics', text: 'See your response and interview rates.' },
 ];
 
@@ -64,7 +66,10 @@ export default function AuthPage({ mode }) {
             ))}
           </ul>
         </div>
-        <p className="relative text-xs text-slate-500">© {new Date().getFullYear()} JobTrackr</p>
+        <div className="relative flex items-center justify-between text-xs text-slate-500">
+          <span>© {new Date().getFullYear()} JobTrackr</span>
+          <MadeBy className="text-slate-400" />
+        </div>
       </div>
 
       {/* Form */}
@@ -108,6 +113,7 @@ export default function AuthPage({ mode }) {
               {isLogin ? 'Sign up free' : 'Log in'}
             </Link>
           </p>
+          <MadeBy className="mt-10 text-slate-400 lg:hidden" />
         </div>
       </div>
     </div>
