@@ -2,7 +2,7 @@
 
 A full-stack MERN app to organize your job/internship hunt: track every application on a drag-and-drop Kanban board, set follow-up reminders, and see your progress on an analytics dashboard.
 
-**Live demo:** _add your link here_ · **Screenshots:** _add a GIF here_
+**Live demo:** https://job-tracker-taupe-sigma-13.vercel.app · **Screenshots:** _add a GIF here_
 
 ## ✨ Features
 
@@ -49,7 +49,7 @@ npm run dev
 |------|-------|
 | Users & applications | **MongoDB**, database `jobtracker`, collections `users` and `applications` |
 | Local dev (no `MONGO_URI`) | A real `mongod` started by `mongodb-memory-server`, writing to **`.data/`** in the project root. It's persistent, and it's git-ignored |
-| Production | Whatever `MONGO_URI` points to (e.g. MongoDB Atlas) |
+| Production | MongoDB Atlas, connected through the Vercel integration (`MONGODB_URI`) |
 | Passwords | Only bcrypt hashes are stored, never plain text |
 | Login session | JWT (valid 7 days) kept in the browser's `localStorage` |
 
@@ -76,11 +76,13 @@ Each application document holds its status history and checklist tasks as embedd
 
 ```
 job-tracker/
+├── api/index.js       # Vercel serverless entry (runs the Express app)
 ├── server/src/
 │   ├── models/        # User, Application (Mongoose)
 │   ├── routes/        # auth, applications
 │   ├── middleware/    # JWT auth, error handler
-│   └── index.js
+│   ├── app.js         # Express app
+│   └── index.js       # local server (npm run dev)
 └── client/src/
     ├── pages/         # AuthPage, Board, Dashboard, Settings
     ├── components/    # KanbanColumn, ApplicationCard, ApplicationModal, Layout
@@ -90,6 +92,14 @@ job-tracker/
 
 ## ☁️ Deployment
 
-- **Database:** MongoDB Atlas (free tier)
-- **API:** Render / Railway — set `MONGO_URI`, `JWT_SECRET`, `CLIENT_URL`
-- **Frontend:** Vercel / Netlify — set `VITE_API_URL=https://<your-api>/api`
+The frontend and API deploy together as **one Vercel project** (config in [`vercel.json`](vercel.json)):
+
+- `client/` is built to static files and served by Vercel
+- `api/index.js` runs the Express API as a serverless function, so the site calls `/api` on the same domain (no CORS setup needed)
+- **Database:** MongoDB Atlas via the Vercel Marketplace integration, which sets `MONGODB_URI` automatically
+
+Environment variables on Vercel: `MONGODB_URI` (from the integration) and `JWT_SECRET`.
+
+```bash
+npx vercel deploy --prod
+```
