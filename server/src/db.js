@@ -36,7 +36,8 @@ export function connectDB() {
 }
 
 async function doConnect() {
-  let uri = process.env.MONGO_URI;
+  // MONGODB_URI is what the Vercel ↔ MongoDB Atlas integration sets automatically
+  let uri = process.env.MONGO_URI || process.env.MONGODB_URI;
   if (!uri) {
     if (process.env.NODE_ENV === 'production') {
       throw new Error('MONGO_URI must be set in production');
